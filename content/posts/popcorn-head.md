@@ -4,8 +4,6 @@ date: 2022-08-21T20:52:04-05:00
 draft: false
 ---
 
-
-# Popcorn Head
 In college I was bestowed with the nickname *Popcorn Head* meaning I have all kinds of ideas overflowing out of my head.
 
 At the time, I'm like I love popcorn and I'm like, to my prof, obviously you don't like that I am a popcorn head.
