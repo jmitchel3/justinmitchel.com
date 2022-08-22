@@ -1,4 +1,4 @@
-baseURL = 'http://www.justinmitchel.com/'
+baseURL = 'https://justinmitchel.com/'
 languageCode = 'en-us'
 title = 'Justin Mitchel'
 theme = "PaperMod"
