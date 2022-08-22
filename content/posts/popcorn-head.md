@@ -1,30 +1,31 @@
 ---
 title: "Popcorn Head"
 date: 2022-08-21T20:52:04-05:00
-draft: false
+draft: true
 ---
 
-In college I was bestowed with the nickname *Popcorn Head* meaning I have all kinds of ideas overflowing out of my head.
+There's a consensus among entrepreneurs (especially tech ones) that *execution* is more important than *ideas* -- ideas are cheap and easy.
 
-At the time, I'm like I love popcorn and I'm like, to my prof, obviously you don't like that I am a popcorn head.
+Ideas are *not* cheap and easy. Yeah sure, one or two here and there are cheap and easy. You can do that right now with little effort. You probably have at least one business idea right?
 
-To troll him, I named my senior thesis project "Popcorn Head Productions."
+But how about 100? 200? 500? 1,000?
 
-But the thing is, *ideas* are important. Why else would book burning be such a radical symbol?
+I don't know about you but I don't know if I could come up with 1,000 original ideas right here and now. 
 
-This website is my attempt at diving deeper into my ideas and doing something with them. 
+This makes execution that much more difficult. What road to take? Which idea is best? Perhaps your friends or family know? Perhaps your mentors? Perhaps the market?
 
-There's a consensus among entrepreneurs (especially tech ones) that *execution* is more important than *ideas* or, *execution* is everything and ideas are not.
+Think of an idea that you haven't shared online and share it. Post a video if you don't like writing. Or do the opposite. 
 
-But isn't *execution* just a commitment to bring ideas to life and while doing so get more ideas and thus continue to bring ideas to life? I don't the answer. Maybe Elon does.
+After you do that, come up with another idea and share it too. Rinse and repeat.
 
-There's a whole other side to ideas and that's *selling* people on yours. I am sure many people would bundle *selling* with *execution* but I think it's something different. I actually think that *selling* is merely a form of sharing. 
+Find a business you like and think to yourself, "how would I run this? What would I do to improve this business?" Share those ideas. Send them to the people who work there. Don't be offended if they don't listen. They probably won't. 
 
-Everyone has good ideas. 
+Find another business. And another. And another.
 
-Let's see if I can find and share some.
+Over time your ideas will improve.
 
-Cheers,
+After a while, the desire to make the idea real becomes a calling, a force of nature pulling you into the fold to make it happen, to bring the idea to life, to share it with the world.
 
-Justin Mitchel
-Buda, Texas. 2022
+Be prolific with your ideas. 
+
+If you're lucky, you'll find an idea that pulls you in; an idea that keeps pulling you in and keeps your mind and your energy focused.
