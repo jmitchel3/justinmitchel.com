@@ -42,7 +42,7 @@ jobs:
           submodules: recursive
       - name: Setup Extra Config
         run: |
-          echo googleAnalytics = \"{{ secrets.GOOGLE_ANALYTICS }}\" >> config.toml
+          echo googleAnalytics: \"{{ secrets.GOOGLE_ANALYTICS }}\" >> config.yaml
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v1
