@@ -3,3 +3,41 @@ languageCode: 'en-us'
 copyright: 'justinmitchel.com'
 title: 'Justin Mitchel'
 theme: "PaperMod"
+
+
+menu:
+  main:
+    - identifier: blog
+      name: blog
+      url: /
+      weight: 10
+    # - identifier: tags
+    #   name: tags
+    #   url: /tags/
+    #   weight: 20
+    - identifier: cfe
+      name: work
+      url: https://www.cfe.sh
+      weight: 30
+
+      
+params:
+    defaultTheme: auto
+    ShowReadingTime: true
+    ShowToc: true
+    ShowBreadCrumbs: true
+    ShowPostNavLinks: true
+    ShowCodeCopyButtons: true
+    profileMode:
+        enabled: false
+        title: "<Title>" # optional default will be site title
+        subtitle: "This is subtitle"
+        # imageUrl: "<image link>" # optional
+        # imageTitle: "<title of image as alt>" # optional
+        # imageWidth: 120 # custom size
+        # imageHeight: 120 # custom size
+        buttons:
+            - name: Archive
+              url: "/archive"
+            - name: Github
+              url: "https://github.com/"
