@@ -20,7 +20,7 @@ menu:
       url: https://www.cfe.sh
       weight: 30
 
-      
+
 params:
     defaultTheme: auto
     ShowReadingTime: true
@@ -28,16 +28,4 @@ params:
     ShowBreadCrumbs: true
     ShowPostNavLinks: true
     ShowCodeCopyButtons: true
-    profileMode:
-        enabled: false
-        title: "<Title>" # optional default will be site title
-        subtitle: "This is subtitle"
-        # imageUrl: "<image link>" # optional
-        # imageTitle: "<title of image as alt>" # optional
-        # imageWidth: 120 # custom size
-        # imageHeight: 120 # custom size
-        buttons:
-            - name: Archive
-              url: "/archive"
-            - name: Github
-              url: "https://github.com/"
+
