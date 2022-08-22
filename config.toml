@@ -1,0 +1,4 @@
+baseURL = 'http://www.justinmitchel.com/'
+languageCode = 'en-us'
+title = 'Justin Mitchel'
+theme = "PaperMod"
