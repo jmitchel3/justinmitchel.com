@@ -22,7 +22,7 @@ menu:
 
 
 params:
-    defaultTheme: auto
+    defaultTheme: dark
     ShowReadingTime: true
     ShowToc: true
     ShowBreadCrumbs: true
