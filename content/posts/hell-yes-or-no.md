@@ -25,10 +25,10 @@ The goal is to fight vigoursly for the things that truly matter to you. To fight
 
 - Do you want to read to your kids before bed? __HELL YEAH!__
 - Do you want make dinner with your 5 year old after she asks? __HELL YEAH!__
-- Do you want to go shopping with your cusoin who is visiting for a few days? __HELL YEAH!__
+- Do you want to go shopping with your cousin who is visiting for a few days? __HELL YEAH!__
 - Do you want to go to Lake Como in Italy for a friend's birthday? __HELL YEAH!__
 - Do you want to go to go-kart racing after work on friday? __HELL YEAH!__
-- Do you want to work hard so your family has a great life? __HELL YEAH!__
+- Do you want to work hard to help your family enjoy a great life? __HELL YEAH!__
 - Do you want to learn as much as you can to enrich your own life? __HELL YEAH!__
 - Do you want to share what you learned with others? __HELL YEAH!__
 
