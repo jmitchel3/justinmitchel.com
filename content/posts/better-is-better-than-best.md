@@ -2,6 +2,7 @@
 title: "Better is Better Than Best"
 date: 2022-08-24T07:43:06-05:00
 draft: true
+tags: ["Mindset", "Apple", "Michael Jordan"]
 ---
 
 Best is a destination. Better is a commitment.
