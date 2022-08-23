@@ -1,6 +1,7 @@
 ---
 title: "Hell Yes or No"
 date: 2022-08-22T07:43:06-05:00
+tags: ["Mindset", "Derek Sivers", "Steve Jobs", "Naval Ravikant"]
 ---
 
 Are you f*ck yeah about doing what you're about to do? Then the answer is no. The answer should always be no.
