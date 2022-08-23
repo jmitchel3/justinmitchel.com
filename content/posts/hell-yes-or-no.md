@@ -24,7 +24,7 @@ The goal is not to be a selfish prick.
 The goal is to fight vigoursly for the things that truly matter to you. To fight against the things that waste your time and attention.
 
 - Do you want to read to your kids before bed? __HELL YEAH!__
-- Do you want make dinner with your 5 year old after she asks? __HELL YEAH!__
+- Do you want make dinner with your daughters after they asks? __HELL YEAH!__
 - Do you want to go shopping with your cousin who is visiting for a few days? __HELL YEAH!__
 - Do you want to go to Lake Como in Italy for a friend's birthday? __HELL YEAH!__
 - Do you want to go to go-kart racing after work on friday? __HELL YEAH!__
