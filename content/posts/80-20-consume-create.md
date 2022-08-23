@@ -1,6 +1,7 @@
 ---
 title: "80/20 Consume/Create"
 date: 2022-08-23T07:43:06-05:00
+tags: ["Creator"]
 ---
 
 Let's say every day you spend 100 minutes consuming content. That's maybe 2 episodes of The Bear, 1 of the office, and 1 parks and rec. 
