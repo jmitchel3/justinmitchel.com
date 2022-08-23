@@ -4,31 +4,34 @@ date: 2022-08-22T07:43:06-05:00
 tags: ["Mindset", "Derek Sivers", "Steve Jobs", "Naval Ravikant"]
 ---
 
-Are you f*ck yeah about doing what you're about to do? Then the answer is no. The answer should always be no.
 
-Here's a few examples:
-- Get invited to a project?
-- Get offered a new job? 
-- Asked to join a new business? 
-- Asked to lunch or coffee to chat?
-- Invited to be a guest on a podcast?
-- Need to do taxes?
+"You can't connect the dots looking forward; you can only connect them looking backwards. So you have to trust that the dots will somehow connect in your future."  -- Steve Jobs at his famous [Stanford Commencement](https://www.youtube.com/watch?v=UF8uR6Z6KLc) speech.
+ 
+Every decision you make comes down to two possible scenarios: it's either __HELL YES!__ or it's no. Put another way, if you don't feel incredibly pulled or excited about saying __YES!__, then say no.
 
-If it's not a __HELL YEAH!__ it's a **no** or at least it should be a no when it certainly can be.
+I first heard this concept from Derek Sivers in [his article](https://sive.rs/hellyeah) and then his [his book](https://sive.rs/n). Both are fantastic and worth a read.
 
-If you're making $20k/year, you are going to have to do your chores regardless of the scale of your feeling of __HELL YEAH!__ or **no**.
+Naval Ravikant set his [hourly wage](https://nav.al/hourly-rate) at $5,000/hr. Anything that costs less than $5,000/hr he outsources to someone else. Naval essentially outsources everything then. For reference, $500/hr (without taxes/fees) is about $1 million per year assuming 2,000 hours of work.
 
-To me, there's a few concepts at play here:
-- Derek Sivers's concept and article discussing [Hell Yeah! or No](https://sive.rs/hellyeah) and even the [book](https://sive.rs/n) about it. 
-- Naval Ravikant's assertion that he doesn't do any task that that cost less than his [hourly wage](https://nav.al/hourly-rate). For example, if the task costs $150/hr to outsource it that's what he chooses since Naval set his hourly wage north of $5k/hr. Thi might be a great way to build wealth for yourself as well.
-- Time. Many people have written on the topic and how it's absolutely our most precious resource. It's the one thing we simply cannot get more of. You cannot *earn* more time like you can *earn* more of money, status, prestige, skills, etc. Saying yes to things that you should say *no* to is time you will never get back.
+Shop for groceries? No. 
+Get your car washed? No.
+Do the dishes? No. 
+Go to Vegas for a friend's birthday? No. 
 
-There's another aspect that's not always discussed as it relates to __HELL YEAH!__ or **no** and that's *fear*. Many people will say **no** because they are simply **afraid of the result** of saying yes.
+There's a huge hidden cost to things that you say yes to. It's only *hidden* because you *have to* spend your time in some way. There's also the reality that you can't say *no* to doing dishes unless you actually have an alternative in place and you can *afford* that alternative.
 
-This *fear* might be the exact reason you need to say yes. *Fear* of failure is the easiest way to lean into always saying *no* but that's when regret will start to fill your life. Regret over a long period of time is the ultimate spirit crusher.
+The goal is not to be a selfish prick. 
+The goal is to fight vigoursly for the things that truly matter to you. To fight against the things that waste your time and attention.
 
-If you're afraid of the result (assuming you're not truly endangering yourself or others), making a choice that scares you should be an immediate answer of __HELL YEAH!__. I'd argue there's not a single successful person in this world that hasn't embraced fear in their pursuit of excellence. 
+Do you want to read to your kids before bed? __HELL YEAH!__
+Do you want make dinner with your 5 year old after she asks? __HELL YEAH!__
+Do you want to go shopping with your cusoin who is visiting for a few days? __HELL YEAH!__
+Do you want to go to Lake Como in Italy for a friend's birthday? __HELL YEAH!__
+Do you want to go to go-kart racing after work on friday? __HELL YEAH!__
+Do you want to work hard so your family has a great life? __HELL YEAH!__
+Do you want to learn as much as you can to enrich your own life? __HELL YEAH!__
+Do you want to share what you learned with others? __HELL YEAH!__
 
-If I remember correctly, Steve Jobs was notoriously more proud of the things they (Apple) said no to then the things they said yes to. 
+The hidden cost of almost everything is how much time you spend on it. Before long, you'll have no more time. Before long, you *will not* get to do the things you've been putting off.
 
-Remember, in life and in business a *lot* of opportunity can come your way if you let it. Saying yes to things that are less than you're calling is a form of cheating yourself now and in the future. 
+Are you with me?
