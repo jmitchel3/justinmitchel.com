@@ -1,3 +1,7 @@
+---
+title: "Guidelines"
+---
+
 Welcome! We try our best to make sure that the discussions on these articles are the troll, spam and abuse free but I'm not omnipresent. 
 
 The comment section can be a great place for interaction with readers, writers and even for spawning stimulating conversation – it can be a great place for all of us! 
