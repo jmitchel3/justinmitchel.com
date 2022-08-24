@@ -4,6 +4,7 @@ copyright: 'justinmitchel.com'
 title: 'Justin Mitchel'
 theme: "PaperMod"
 enableEmoji: true
+disqusShortname: "justinmitchel"
 
 menu:
   main:
@@ -28,4 +29,6 @@ params:
     ShowBreadCrumbs: true
     ShowPostNavLinks: true
     ShowCodeCopyButtons: true
+    comments: true
+
 
