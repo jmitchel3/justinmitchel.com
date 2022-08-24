@@ -22,7 +22,21 @@ menu:
       weight: 30
 
 
+
+      
 params:
+    homeInfoParams:
+        Title: Hi, I'm Justin
+        Content: |
+          I am a father, entrepreneur, coder, engineer, teacher, & student of life. 
+          I teach on [cfe](https://www.cfe.sh/).
+    socialIcons: 
+      - name: "twitter"
+        url: "https://twitter.com/justinmitchel"
+      - name: "tiktok"
+        url: "https://www.tiktok.com/@justinmitchel"
+      - name: "github"
+        url: "https://www.github.com/jmitchel3"
     defaultTheme: dark
     ShowReadingTime: true
     ShowToc: true
@@ -30,5 +44,7 @@ params:
     ShowPostNavLinks: true
     ShowCodeCopyButtons: true
     comments: true
-
-
+    author: ["Justin Mitchel"]
+    ShowShareButtons: false
+    ShareButtons: ["linkedin", "twitter"]
+    
