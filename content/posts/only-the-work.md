@@ -1,6 +1,6 @@
 ---
 title: "Only the Work"
-date: 2022-08-27T11:21:24-05:00
+date: 2022-08-27T09:05:24-05:00
 tags: ["Focus", "Mindset"]
 ---
 
