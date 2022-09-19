@@ -1,9 +1,14 @@
 baseURL: 'https://justinmitchel.com/'
 languageCode: 'en-us'
-copyright: 'justinmitchel.com'
+# copyright: 'justinmitchel.com'
 title: 'Justin Mitchel'
 theme: "PaperMod"
 enableEmoji: true
+rssLimit: 20
+copyright: "2022 Justin Mitchel. All rights reserved"
+
+author:
+  name: Justin Mitchel
 
 menu:
   main:
@@ -24,6 +29,7 @@ menu:
 
       
 params:
+    AuthorName: Justin Mitchel
     homeInfoParams:
         Title: Hi, I'm Justin
         Content: |
