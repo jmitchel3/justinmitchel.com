@@ -1,0 +1,202 @@
+---
+
+---
+
+<div class="newsletter-form">
+  <h3>Stay in the loop</h3>
+  <p>Get notified when I publish something new.</p>
+
+  <form id="newsletter-form">
+    <div class="form-row">
+      <input
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit">
+        <span class="button-text">Subscribe</span>
+        <span class="button-loading" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="32">
+              <animate attributeName="stroke-dashoffset" dur="1s" values="32;0" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p class="form-message" style="display: none;"></p>
+  </form>
+</div>
+
+<style>
+  .newsletter-form {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .newsletter-form h3 {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--color-text);
+  }
+
+  .newsletter-form > p {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1rem 0;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  input[type="email"] {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px oklch(from var(--color-accent) l c h / 0.15);
+  }
+
+  input[type="email"]::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  button[type="submit"] {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+
+  button[type="submit"]:active {
+    transform: scale(0.98);
+  }
+
+  button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .form-message {
+    font-size: 0.8125rem;
+    margin: 0.75rem 0 0 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+  }
+
+  .form-message.success {
+    color: #059669;
+    background: #ecfdf5;
+  }
+
+  .form-message.error {
+    color: #dc2626;
+    background: #fef2f2;
+  }
+
+  :global(.dark) .form-message.success {
+    color: #34d399;
+    background: #064e3b;
+  }
+
+  :global(.dark) .form-message.error {
+    color: #f87171;
+    background: #450a0a;
+  }
+
+  @media (max-width: 400px) {
+    .form-row {
+      flex-direction: column;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  function initNewsletterForm() {
+    const form = document.getElementById('newsletter-form') as HTMLFormElement;
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const buttonText = button.querySelector('.button-text') as HTMLElement;
+      const buttonLoading = button.querySelector('.button-loading') as HTMLElement;
+      const message = form.querySelector('.form-message') as HTMLElement;
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+
+      button.disabled = true;
+      buttonText.style.display = 'none';
+      buttonLoading.style.display = 'block';
+      message.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: emailInput.value }),
+        });
+
+        const data = await response.json();
+
+        message.style.display = 'block';
+        if (response.ok) {
+          message.className = 'form-message success';
+          message.textContent = 'Thanks for subscribing!';
+          emailInput.value = '';
+        } else {
+          message.className = 'form-message error';
+          message.textContent = data.error || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        message.style.display = 'block';
+        message.className = 'form-message error';
+        message.textContent = 'Network error. Please try again.';
+      } finally {
+        button.disabled = false;
+        buttonText.style.display = 'block';
+        buttonLoading.style.display = 'none';
+      }
+    });
+  }
+
+  initNewsletterForm();
+  document.addEventListener('astro:after-swap', initNewsletterForm);
+</script>

@@ -1,4 +1,6 @@
 ---
+import NewsletterForm from './NewsletterForm.astro';
+
 const socialLinks = [
   { href: 'https://twitter.com/justinmitchel', label: 'Twitter', icon: 'twitter' },
   { href: 'https://www.tiktok.com/@justinmitchel', label: 'TikTok', icon: 'tiktok' },
@@ -10,7 +12,9 @@ const currentYear = new Date().getFullYear();
 
 <footer class="border-t border-[var(--color-border)] py-8 mt-16">
   <div class="container">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+    <NewsletterForm />
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
       <p class="text-sm text-[var(--color-text-secondary)]">
         &copy; {currentYear} Justin Mitchel. All rights reserved.
       </p>
