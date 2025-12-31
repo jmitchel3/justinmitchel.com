@@ -1,0 +1,3 @@
+# Redirect old blog paths to new articles page
+/blog    /articles    301
+/blog/*  /articles    301

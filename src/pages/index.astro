@@ -1,46 +1,137 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PostCard from '@/components/PostCard.astro';
+import NewsletterForm from '@/components/NewsletterForm.astro';
 
-// Get all non-draft posts, sorted by date
-const posts = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-// Calculate reading time (rough estimate: 200 words per minute)
-function getReadingTime(content: string): string {
-  const words = content.split(/\s+/).length;
-  const minutes = Math.ceil(words / 200);
-  return `${minutes} min read`;
-}
+// Brand logos to display
+const brands = [
+  { name: 'Cloudflare', logo: '/brands/cloudflare.svg' },
+  { name: 'Docker', logo: '/brands/docker-logo-blue.svg' },
+  { name: 'DigitalOcean', logo: '/brands/digitalocean.svg' },
+  { name: 'Algolia', logo: '/brands/algolia.svg' },
+  { name: 'Upstash', logo: '/brands/upstash.svg' },
+  { name: 'Clerk', logo: '/brands/clerk.svg' },
+];
 ---
 
 <BaseLayout title="Justin Mitchel">
-  <div class="container py-12">
+  <div class="page-container">
     <!-- Hero Section -->
-    <section class="mb-16">
-      <h1 class="text-4xl mb-4">Hi, I'm Justin</h1>
-      <p class="text-xl text-[var(--color-text-secondary)] max-w-2xl">
-        I am a father, entrepreneur, coder, engineer, teacher, & student of life.
-        I teach on <a href="https://www.cfe.sh" target="_blank" rel="noopener noreferrer">cfe</a>.
+    <section class="hero">
+      <h1 class="hero-headline">Build Anything.</h1>
+      <p class="hero-subheadline">
+        Explore how to create using AI, Agents, and Code.
       </p>
+
+      <div class="hero-cta">
+        <NewsletterForm
+          variant="hero"
+          heading="Get my best ideas"
+          subheading="Weekly tips in your inbox."
+          showHeading={true}
+        />
+      </div>
     </section>
 
-    <!-- Posts Section -->
-    <section>
-      <h2 class="text-2xl mb-8">Recent Posts</h2>
-      <div class="space-y-0">
-        {posts.map((post) => (
-          <PostCard
-            title={post.data.title}
-            slug={post.slug}
-            date={post.data.date}
-            description={post.data.description}
-            tags={post.data.tags}
-            readingTime={getReadingTime(post.body || '')}
-          />
+    <!-- Social Proof -->
+    <section class="social-proof">
+      <p class="social-proof-label">I've worked with teams at</p>
+      <div class="brands-row">
+        {brands.map((brand) => (
+          <img src={brand.logo} alt={brand.name} class="brand-logo" loading="lazy" />
         ))}
       </div>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 6rem 0 5rem;
+    text-align: center;
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 10vw, 4.5rem);
+    line-height: 1;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+  }
+
+  .hero-subheadline {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 400px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+
+  .hero-cta {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* Social Proof */
+  .social-proof {
+    padding: 3rem 0 5rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .social-proof-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .brands-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .brand-logo {
+    height: 24px;
+    width: auto;
+    opacity: 0.5;
+    filter: grayscale(100%);
+    transition: opacity 0.2s, filter 0.2s;
+  }
+
+  .brand-logo:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  :global(.dark) .brand-logo {
+    filter: grayscale(100%) brightness(2);
+  }
+
+  :global(.dark) .brand-logo:hover {
+    filter: grayscale(0%) brightness(1.1);
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .brands-row {
+      gap: 1.5rem;
+    }
+
+    .brand-logo {
+      height: 20px;
+    }
+  }
+</style>

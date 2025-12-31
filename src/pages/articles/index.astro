@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Get all non-draft posts
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Define categories and which tags belong to them
+const categoryMapping: Record<string, string[]> = {
+  'Mindset': ['Mindset', 'Focus', 'Commitment'],
+  'Creating': ['Creator', 'Creators', 'Educators', 'CCC'],
+  'Work': ['Work'],
+  'Inspiration': ['Seth Godin', 'Derek Sivers', 'Steve Jobs', 'Naval Ravikant', 'James Clear', 'Paul Orfalea', 'Michael Jordan', 'Apple'],
+};
+
+// Group posts by category
+function getPostCategory(tags: string[]): string {
+  for (const [category, categoryTags] of Object.entries(categoryMapping)) {
+    if (tags.some(tag => categoryTags.includes(tag))) {
+      return category;
+    }
+  }
+  return 'Other';
+}
+
+// Create category groups
+const categories: Record<string, typeof allPosts> = {};
+for (const post of allPosts) {
+  const category = getPostCategory(post.data.tags || []);
+  if (!categories[category]) {
+    categories[category] = [];
+  }
+  categories[category].push(post);
+}
+
+// Order categories
+const categoryOrder = ['Mindset', 'Creating', 'Inspiration', 'Work', 'Other'];
+const orderedCategories = categoryOrder.filter(cat => categories[cat]?.length > 0);
+---
+
+<BaseLayout title="Articles - Justin Mitchel">
+  <div class="page-container">
+    <header class="page-header">
+      <h1 class="page-title">Articles</h1>
+      <p class="page-description">Thoughts on building, creating, and thinking clearly.</p>
+    </header>
+
+    {orderedCategories.map((category) => (
+      <section class="category-section">
+        <h2 class="category-title">{category}</h2>
+        <ul class="article-list">
+          {categories[category].map((post) => (
+            <li>
+              <a href={`/posts/${post.slug}/`} class="article-link">
+                {post.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .page-header {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0 0 0.75rem 0;
+    letter-spacing: -0.03em;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .category-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .category-section:last-child {
+    border-bottom: none;
+  }
+
+  .category-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .article-list li {
+    margin-bottom: 0.875rem;
+  }
+
+  .article-link {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    transition: color 0.15s;
+  }
+
+  .article-link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
+</style>

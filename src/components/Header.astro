@@ -2,14 +2,14 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
-  { href: '/', label: 'Blog' },
+  { href: '/articles', label: 'Articles' },
   { href: '/about', label: 'About' },
-  { href: 'https://www.cfe.sh', label: 'Work', external: true },
+  { href: 'https://www.cfe.sh', label: 'Coding for Entrepreneurs', external: true },
 ];
 ---
 
 <header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-sm">
-  <div class="container flex items-center justify-between h-16">
+  <div class="container-wide flex items-center justify-between h-16">
     <a href="/" class="font-mono font-semibold text-lg hover:no-underline hover:text-[var(--color-accent)]">
       Justin Mitchel
     </a>
@@ -18,7 +18,7 @@ const navLinks = [
       {navLinks.map((link) => (
         <a
           href={link.href}
-          class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors"
+          class="hidden sm:inline text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors"
           {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
           {link.label}
@@ -30,6 +30,12 @@ const navLinks = [
         </a>
       ))}
       <ThemeToggle />
+      <a
+        href="#subscribe"
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-accent)] rounded-lg hover:opacity-90 hover:no-underline transition-opacity"
+      >
+        Subscribe
+      </a>
     </nav>
   </div>
 </header>

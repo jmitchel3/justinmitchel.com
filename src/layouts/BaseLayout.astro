@@ -80,6 +80,6 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer hideNewsletter={article} />
   </body>
 </html>

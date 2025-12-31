@@ -1,12 +1,178 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const metrics = [
+  { value: '12+', label: 'Years Building' },
+  { value: '800k+', label: 'People Taught' },
+  { value: '25M+', label: 'Views' },
+  { value: '200+', label: 'Projects' },
+];
+
+const links = [
+  
+  { href: 'https://x.com/justinmitchel', label: 'X' },
+  { href: 'https://www.tiktok.com/@justinmitchel', label: 'TikTok' },
+  { href: 'https://www.linkedin.com/in/justinmitchel', label: 'LinkedIn' },
+  { href: 'https://www.github.com/jmitchel3', label: 'GitHub' },
+  { href: 'https://www.youtube.com/@justinmitchel', label: 'YouTube' },
+  { href: 'https://www.youtube.com/@codingentreprenuers', label: 'CFE YouTube' },
+  { href: 'https://www.codingforentrepreneurs.com', label: 'Coding for Entrepreneurs' },
+];
 ---
 
-<BaseLayout title="About">
-  <div class="container py-12">
-    <h1 class="text-4xl mb-8">About</h1>
-    <div class="prose">
-      <p>Coming Soon.</p>
-    </div>
+<BaseLayout title="About - Justin Mitchel">
+  <div class="page-container">
+    <header class="page-header">
+      <h1 class="page-title">About</h1>
+    </header>
+
+    <section class="bio">
+      <p>
+        I'm Justin. I build things with code and AI, and I teach others to do the same.
+      </p>
+      <p>
+        Since 2013, I've been running <a href="https://www.cfe.sh" target="_blank" rel="noopener noreferrer">Coding for Entrepreneurs</a>,
+        helping people turn ideas into working products.
+      </p>
+    </section>
+
+    <section class="metrics">
+      <div class="metrics-grid">
+        {metrics.map((metric) => (
+          <div class="metric">
+            <span class="metric-value">{metric.value}</span>
+            <span class="metric-label">{metric.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="links-section">
+      <h2 class="section-title">Find me</h2>
+      <ul class="links-list">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} target="_blank" rel="noopener noreferrer" class="link">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   </div>
 </BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .page-header {
+    padding: 4rem 0 2rem;
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0;
+    letter-spacing: -0.03em;
+  }
+
+  .bio {
+    padding: 2rem 0 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bio p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bio a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .metrics {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .metric {
+    text-align: center;
+  }
+
+  .metric-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .metric-label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 480px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .links-section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .links-list li {
+    margin-bottom: 1rem;
+  }
+
+  .link {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    transition: color 0.15s;
+  }
+
+  .link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
+</style>

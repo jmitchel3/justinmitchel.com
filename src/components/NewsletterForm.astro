@@ -1,17 +1,33 @@
 ---
+interface Props {
+  variant?: 'default' | 'hero' | 'inline';
+  heading?: string;
+  subheading?: string;
+  showHeading?: boolean;
+}
 
+const {
+  variant = 'default',
+  heading = 'Stay in the loop',
+  subheading = 'Get notified when I publish something new.',
+  showHeading = true
+} = Astro.props;
 ---
 
-<div class="newsletter-form">
-  <h3>Stay in the loop</h3>
-  <p>Get notified when I publish something new.</p>
+<div class:list={["newsletter-form", `newsletter-form--${variant}`]}>
+  {showHeading && (
+    <>
+      <h3>{heading}</h3>
+      <p class="newsletter-subheading">{subheading}</p>
+    </>
+  )}
 
-  <form id="newsletter-form">
+  <form class="newsletter-form-element">
     <div class="form-row">
       <input
         type="email"
         name="email"
-        placeholder="your@email.com"
+        placeholder="you@email.com"
         required
         autocomplete="email"
       />
@@ -37,6 +53,22 @@
     border-top: 1px solid var(--color-border);
   }
 
+  .newsletter-form--hero {
+    margin-top: 2rem;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .newsletter-form--inline {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    background: var(--color-bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+  }
+
   .newsletter-form h3 {
     font-family: var(--font-mono);
     font-size: 0.875rem;
@@ -45,10 +77,19 @@
     color: var(--color-text);
   }
 
-  .newsletter-form > p {
+  .newsletter-form--inline h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter-subheading {
     font-size: 0.8125rem;
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     margin: 0 0 1rem 0;
+  }
+
+  .newsletter-form--inline .newsletter-subheading {
+    font-size: 0.9375rem;
   }
 
   .form-row {
@@ -147,56 +188,60 @@
 </style>
 
 <script>
-  function initNewsletterForm() {
-    const form = document.getElementById('newsletter-form') as HTMLFormElement;
-    if (!form) return;
+  function initNewsletterForms() {
+    const forms = document.querySelectorAll('.newsletter-form-element') as NodeListOf<HTMLFormElement>;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    forms.forEach((form) => {
+      if (form.dataset.initialized) return;
+      form.dataset.initialized = 'true';
 
-      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-      const buttonText = button.querySelector('.button-text') as HTMLElement;
-      const buttonLoading = button.querySelector('.button-loading') as HTMLElement;
-      const message = form.querySelector('.form-message') as HTMLElement;
-      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      button.disabled = true;
-      buttonText.style.display = 'none';
-      buttonLoading.style.display = 'block';
-      message.style.display = 'none';
+        const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const buttonText = button.querySelector('.button-text') as HTMLElement;
+        const buttonLoading = button.querySelector('.button-loading') as HTMLElement;
+        const message = form.querySelector('.form-message') as HTMLElement;
+        const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
 
-      try {
-        const response = await fetch('/api/subscribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: emailInput.value }),
-        });
+        button.disabled = true;
+        buttonText.style.display = 'none';
+        buttonLoading.style.display = 'block';
+        message.style.display = 'none';
 
-        const data = await response.json();
+        try {
+          const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: emailInput.value }),
+          });
 
-        message.style.display = 'block';
-        if (response.ok) {
-          message.className = 'form-message success';
-          message.textContent = 'Thanks for subscribing!';
-          emailInput.value = '';
-        } else {
+          const data = await response.json();
+
+          message.style.display = 'block';
+          if (response.ok) {
+            message.className = 'form-message success';
+            message.textContent = 'Thanks for subscribing!';
+            emailInput.value = '';
+          } else {
+            message.className = 'form-message error';
+            message.textContent = data.error || 'Something went wrong. Please try again.';
+          }
+        } catch {
+          message.style.display = 'block';
           message.className = 'form-message error';
-          message.textContent = data.error || 'Something went wrong. Please try again.';
+          message.textContent = 'Network error. Please try again.';
+        } finally {
+          button.disabled = false;
+          buttonText.style.display = 'block';
+          buttonLoading.style.display = 'none';
         }
-      } catch {
-        message.style.display = 'block';
-        message.className = 'form-message error';
-        message.textContent = 'Network error. Please try again.';
-      } finally {
-        button.disabled = false;
-        buttonText.style.display = 'block';
-        buttonLoading.style.display = 'none';
-      }
+      });
     });
   }
 
-  initNewsletterForm();
-  document.addEventListener('astro:after-swap', initNewsletterForm);
+  initNewsletterForms();
+  document.addEventListener('astro:after-swap', initNewsletterForms);
 </script>
