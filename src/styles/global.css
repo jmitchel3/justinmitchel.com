@@ -34,11 +34,11 @@
 }
 
 :root.dark {
-  --color-bg: #0c0a09;
-  --color-bg-secondary: #1c1917;
-  --color-text: #fafaf9;
-  --color-text-secondary: #a8a29e;
-  --color-border: #292524;
+  --color-bg: #18181b;
+  --color-bg-secondary: #27272a;
+  --color-text: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-border: #3f3f46;
   --color-accent: #3b82f6;
   --color-accent-hover: #60a5fa;
 }
