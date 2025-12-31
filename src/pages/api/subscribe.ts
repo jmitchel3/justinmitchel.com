@@ -27,56 +27,34 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Kit API v4 - Step 1: Create or update subscriber
-    const subscriberResponse = await fetch('https://api.kit.com/v4/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': apiKey,
-      },
-      body: JSON.stringify({
-        email_address: email,
-        ...(firstName && { first_name: firstName }),
-      }),
-    });
-
-    if (!subscriberResponse.ok) {
-      const errorData = await subscriberResponse.json();
-      console.error('Kit API subscriber error:', errorData);
-      return new Response(
-        JSON.stringify({ error: 'Failed to subscribe. Please try again.' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const subscriberData = await subscriberResponse.json();
-    const subscriberId = subscriberData.subscriber?.id;
-
-    if (!subscriberId) {
-      console.error('No subscriber ID returned:', subscriberData);
-      return new Response(
-        JSON.stringify({ error: 'Failed to create subscriber.' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Kit API v4 - Step 2: Add subscriber to form
-    const formResponse = await fetch(
-      `https://api.kit.com/v4/forms/${formId}/subscribers/${subscriberId}`,
+    // Kit API v3 - Subscribe to form
+    const kitResponse = await fetch(
+      `https://api.convertkit.com/v3/forms/${formId}/subscribe`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Kit-Api-Key': apiKey,
         },
+        body: JSON.stringify({
+          api_key: apiKey,
+          email,
+          ...(firstName && { first_name: firstName }),
+        }),
       }
     );
 
-    if (!formResponse.ok) {
-      const errorData = await formResponse.json();
-      console.error('Kit API form error:', errorData);
-      // Subscriber created but form add failed - still partial success
+    const responseData = await kitResponse.json();
+
+    if (!kitResponse.ok) {
+      console.error('Kit API error:', responseData);
+      return new Response(
+        JSON.stringify({ error: responseData.message || 'Failed to subscribe. Please try again.' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
     }
+
+    // Log success for debugging
+    console.log('Kit API success:', responseData);
 
     return new Response(
       JSON.stringify({ success: true, message: 'Successfully subscribed!' }),
