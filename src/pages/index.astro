@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+
+// Get all non-draft posts, sorted by date
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Calculate reading time (rough estimate: 200 words per minute)
+function getReadingTime(content: string): string {
+  const words = content.split(/\s+/).length;
+  const minutes = Math.ceil(words / 200);
+  return `${minutes} min read`;
+}
+---
+
+<BaseLayout title="Justin Mitchel">
+  <div class="container py-12">
+    <!-- Hero Section -->
+    <section class="mb-16">
+      <h1 class="text-4xl mb-4">Hi, I'm Justin</h1>
+      <p class="text-xl text-[var(--color-text-secondary)] max-w-2xl">
+        I am a father, entrepreneur, coder, engineer, teacher, & student of life.
+        I teach on <a href="https://www.cfe.sh" target="_blank" rel="noopener noreferrer">cfe</a>.
+      </p>
+    </section>
+
+    <!-- Posts Section -->
+    <section>
+      <h2 class="text-2xl mb-8">Recent Posts</h2>
+      <div class="space-y-0">
+        {posts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            slug={post.slug}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            readingTime={getReadingTime(post.body || '')}
+          />
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

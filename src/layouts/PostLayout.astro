@@ -1,0 +1,153 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  tags?: string[];
+  readingTime?: string;
+}
+
+const { title, date, description, tags = [], readingTime } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const isoDate = date.toISOString();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// JSON-LD structured data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "datePublished": isoDate,
+  "dateModified": isoDate,
+  "author": {
+    "@type": "Person",
+    "name": "Justin Mitchel",
+    "url": "https://justinmitchel.com"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Justin Mitchel",
+    "url": "https://justinmitchel.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL.toString()
+  },
+  "keywords": tags.join(", ")
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  article={true}
+  publishedTime={isoDate}
+>
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="container py-12">
+    <!-- Post Header -->
+    <header class="mb-12">
+      <div class="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)] mb-4">
+        <time datetime={isoDate}>{formattedDate}</time>
+        {readingTime && (
+          <>
+            <span>&middot;</span>
+            <span>{readingTime}</span>
+          </>
+        )}
+      </div>
+
+      <h1 class="text-4xl mb-4">{title}</h1>
+
+      {description && (
+        <p class="text-xl text-[var(--color-text-secondary)]">
+          {description}
+        </p>
+      )}
+
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-6">
+          {tags.map((tag) => (
+            <a
+              href={`/tags/${tag.toLowerCase()}/`}
+              class="text-sm px-3 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:no-underline transition-colors"
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Post Content -->
+    <div class="prose">
+      <slot />
+    </div>
+
+    <!-- Back to Blog -->
+    <footer class="mt-16 pt-8 border-t border-[var(--color-border)]">
+      <a href="/" class="text-[var(--color-text-secondary)] hover:text-[var(--color-text)]">
+        &larr; Back to all posts
+      </a>
+    </footer>
+  </article>
+
+  <!-- Copy Button Script -->
+  <script>
+    function initCopyButtons() {
+      document.querySelectorAll('pre').forEach((pre) => {
+        // Skip if already has copy button
+        if (pre.querySelector('.copy-button')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'relative group';
+        pre.parentNode?.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const button = document.createElement('button');
+        button.className = 'copy-button absolute top-2 right-2 p-2 rounded-lg bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] opacity-0 group-hover:opacity-100 hover:text-[var(--color-text)] transition-all';
+        button.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        `;
+        button.setAttribute('aria-label', 'Copy code');
+
+        button.addEventListener('click', async () => {
+          const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+          await navigator.clipboard.writeText(code);
+
+          button.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          `;
+
+          setTimeout(() => {
+            button.innerHTML = `
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            `;
+          }, 2000);
+        });
+
+        wrapper.appendChild(button);
+      });
+    }
+
+    initCopyButtons();
+    document.addEventListener('astro:after-swap', initCopyButtons);
+  </script>
+</BaseLayout>

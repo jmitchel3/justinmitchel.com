@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  slug: string;
+  date: Date;
+  description?: string;
+  tags?: string[];
+  readingTime?: string;
+}
+
+const { title, slug, date, description, tags = [], readingTime } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="group">
+  <a href={`/posts/${slug}/`} class="block hover:no-underline">
+    <div class="py-6 border-b border-[var(--color-border)] transition-colors group-hover:border-[var(--color-accent)]">
+      <div class="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)] mb-2">
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        {readingTime && (
+          <>
+            <span>&middot;</span>
+            <span>{readingTime}</span>
+          </>
+        )}
+      </div>
+
+      <h2 class="text-xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-2">
+        {title}
+      </h2>
+
+      {description && (
+        <p class="text-[var(--color-text-secondary)] line-clamp-2">
+          {description}
+        </p>
+      )}
+
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-3">
+          {tags.map((tag) => (
+            <span class="text-xs px-2 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+</article>

@@ -1,15 +1,27 @@
+# OS
 .DS_Store
 
-# Generated files by hugo
-/public/
-/resources/_gen/
-/assets/jsconfig.json
-hugo_stats.json
+# Dependencies
+node_modules/
 
-# Executable may be added to repository
-hugo.exe
-hugo.darwin
-hugo.linux
+# Build output
+dist/
+.astro/
 
-# Temporary lock file while building
-/.hugo_build.lock
+# Environment variables
+.env
+.env.production
+.env.local
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cloudflare
+.wrangler/
