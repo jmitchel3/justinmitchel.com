@@ -14,7 +14,7 @@ interface Props {
 
 const {
   title,
-  description = "Justin Mitchel | 3x Dad, Entrepreneur, Teacher, Vibe Coder, & Student of Life.",
+  description = "Helping you vibe code your projects with AI Agents.",
   ogImage = "/og-default.png",
   article = false,
   publishedTime,
@@ -23,7 +23,7 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
 const siteName = "Justin Mitchel";
-const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const fullTitle = title === siteName || title.includes(siteName) ? title : `${title} | ${siteName}`;
 ---
 
 <!doctype html>
