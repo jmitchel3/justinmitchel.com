@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const data = await request.json();
     const { email, firstName } = data;
@@ -14,8 +14,10 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const apiKey = import.meta.env.KIT_API_KEY;
-    const formId = import.meta.env.KIT_FORM_ID;
+    // Access Cloudflare runtime environment variables
+    const runtime = (locals as any).runtime;
+    const apiKey = runtime?.env?.KIT_API_KEY || import.meta.env.KIT_API_KEY;
+    const formId = runtime?.env?.KIT_FORM_ID || import.meta.env.KIT_FORM_ID;
 
     if (!apiKey || !formId) {
       console.error('Missing KIT_API_KEY or KIT_FORM_ID environment variables');
