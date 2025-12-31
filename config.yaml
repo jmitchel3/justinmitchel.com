@@ -42,6 +42,10 @@ params:
         url: "https://www.tiktok.com/@justinmitchel"
       - name: "github"
         url: "https://www.github.com/jmitchel3"
+      - name: "youtube"
+        url: "https://www.youtube.com/@justinmitchel"
+      - name: "linkedin"
+        url: "https://www.linkedin.com/in/justinmitchel"
     defaultTheme: dark
     ShowReadingTime: true
     ShowToc: true

@@ -62,6 +62,8 @@ const jsonLd = {
       <article class="post-content">
         <!-- Post Header -->
         <header class="mb-8 lg:mb-12">
+          <h1 class="text-4xl mb-4">{title}</h1>
+
           <div class="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)] mb-4">
             <time datetime={isoDate}>{formattedDate}</time>
             {readingTime && (
@@ -72,25 +74,10 @@ const jsonLd = {
             )}
           </div>
 
-          <h1 class="text-4xl mb-4">{title}</h1>
-
           {description && (
             <p class="text-xl text-[var(--color-text-secondary)]">
               {description}
             </p>
-          )}
-
-          {tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 mt-6">
-              {tags.map((tag) => (
-                <a
-                  href={`/tags/${tag.toLowerCase()}/`}
-                  class="text-sm px-3 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:no-underline transition-colors"
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
           )}
         </header>
 
@@ -99,8 +86,22 @@ const jsonLd = {
           <slot />
         </div>
 
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-8 pt-8 border-t border-[var(--color-border)]">
+            {tags.map((tag) => (
+              <a
+                href={`/tags/${tag.toLowerCase()}/`}
+                class="text-sm px-3 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:no-underline transition-colors"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
+
         <!-- Back to Blog -->
-        <footer class="mt-16 pt-8 border-t border-[var(--color-border)]">
+        <footer class="mt-8 pt-8 border-t border-[var(--color-border)]">
           <a href="/" class="text-[var(--color-text-secondary)] hover:text-[var(--color-text)]">
             &larr; Back to all posts
           </a>
