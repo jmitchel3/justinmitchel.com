@@ -14,8 +14,14 @@ const categoryMapping: Record<string, string[]> = {
   'Inspiration': ['Seth Godin', 'Derek Sivers', 'Steve Jobs', 'Naval Ravikant', 'James Clear', 'Paul Orfalea', 'Michael Jordan', 'Apple'],
 };
 
-// Group posts by category
-function getPostCategory(tags: string[]): string {
+// Group posts by category - use frontmatter category if present, otherwise use tag mapping
+function getPostCategory(post: typeof allPosts[0]): string {
+  // Use explicit category from frontmatter if present
+  if (post.data.category) {
+    return post.data.category;
+  }
+  // Fall back to tag-based mapping
+  const tags = post.data.tags || [];
   for (const [category, categoryTags] of Object.entries(categoryMapping)) {
     if (tags.some(tag => categoryTags.includes(tag))) {
       return category;
@@ -27,16 +33,42 @@ function getPostCategory(tags: string[]): string {
 // Create category groups
 const categories: Record<string, typeof allPosts> = {};
 for (const post of allPosts) {
-  const category = getPostCategory(post.data.tags || []);
+  const category = getPostCategory(post);
   if (!categories[category]) {
     categories[category] = [];
   }
   categories[category].push(post);
 }
 
-// Order categories
-const categoryOrder = ['Mindset', 'Creating', 'Inspiration', 'Work', 'Other'];
-const orderedCategories = categoryOrder.filter(cat => categories[cat]?.length > 0);
+// Sort posts within each category by order field (if present), then by date
+for (const category of Object.keys(categories)) {
+  categories[category].sort((a, b) => {
+    const orderA = a.data.order ?? Infinity;
+    const orderB = b.data.order ?? Infinity;
+    if (orderA !== orderB) return orderA - orderB;
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  });
+}
+
+// Category display configuration
+const priorityCategories = ['Vibe Coding', 'Claude Code', 'Mindset', 'Creating', 'Inspiration', 'Work'];
+const hiddenCategories: string[] = []; // Add category names here to hide them
+
+// Get all available categories (excluding hidden ones)
+const allCategoryNames = Object.keys(categories).filter(cat =>
+  categories[cat]?.length > 0 && !hiddenCategories.includes(cat)
+);
+
+// Order categories: priority first (in order), then others alphabetically, then 'Other' last
+const priorityInOrder = priorityCategories.filter(cat => allCategoryNames.includes(cat));
+const otherCategories = allCategoryNames
+  .filter(cat => !priorityCategories.includes(cat) && cat !== 'Other')
+  .sort();
+const orderedCategories = [
+  ...priorityInOrder,
+  ...otherCategories,
+  ...(allCategoryNames.includes('Other') ? ['Other'] : [])
+];
 ---
 
 <BaseLayout title="Articles - Justin Mitchel">

@@ -123,8 +123,14 @@ code {
   font-weight: 600;
 }
 
-.prose ul, .prose ol {
+.prose ul {
   padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose ol {
+  padding-left: 1.5rem;
+  list-style-type: decimal;
 }
 
 .prose li {

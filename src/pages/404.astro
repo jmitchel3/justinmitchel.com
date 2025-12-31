@@ -3,19 +3,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Page Not Found">
-  <div class="container py-12 text-center">
+  <div class="container min-h-[60vh] flex flex-col items-center justify-center text-center py-12">
     <h1 class="text-6xl mb-4">404</h1>
     <p class="text-xl text-[var(--color-text-secondary)] mb-8">
       Oops! The page you're looking for doesn't exist.
     </p>
-    <a
-      href="/"
-      class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] hover:no-underline transition-colors"
-    >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>
-      Back to Home
-    </a>
+    <a href="/" class="text-[var(--color-accent)] hover:underline">Back to Home</a>
+
+    <div class="mt-16 pt-8 border-t border-[var(--color-border)]">
+      <p class="text-sm text-[var(--color-text-secondary)] mb-6">Or check out some articles:</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/the-long-game" class="text-[var(--color-accent)] hover:underline">The Long Game</a>
+        <a href="/hell-yes-or-no" class="text-[var(--color-accent)] hover:underline">Hell Yes or No</a>
+        <a href="/creators-create" class="text-[var(--color-accent)] hover:underline">Creators Create</a>
+        <a href="/automate-everything" class="text-[var(--color-accent)] hover:underline">Automate Everything</a>
+      </div>
+    </div>
   </div>
 </BaseLayout>

@@ -6,7 +6,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://justinmitchel.com',
   output: 'static',
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'compile' }),
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
