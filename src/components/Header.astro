@@ -30,12 +30,44 @@ const navLinks = [
         </a>
       ))}
       <ThemeToggle />
-      <a
-        href="#subscribe"
-        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-accent)] rounded-lg hover:opacity-90 hover:no-underline transition-opacity"
+      <button
+        data-subscribe-trigger
+        class="subscribe-btn"
       >
         Subscribe
-      </a>
+      </button>
     </nav>
   </div>
 </header>
+
+<style>
+  button.subscribe-btn {
+    display: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: #fff !important;
+    background-color: var(--color-accent);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  button.subscribe-btn:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    color: #fff !important;
+  }
+
+  button.subscribe-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (min-width: 640px) {
+    button.subscribe-btn {
+      display: inline-flex;
+    }
+  }
+</style>

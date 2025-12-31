@@ -57,9 +57,9 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <div class="container-wide py-8 lg:py-12">
-    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-12">
+    <div class="post-layout">
       <!-- Main Content -->
-      <article>
+      <article class="post-content">
         <!-- Post Header -->
         <header class="mb-8 lg:mb-12">
           <div class="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)] mb-4">
@@ -108,8 +108,8 @@ const jsonLd = {
       </article>
 
       <!-- Sidebar (Desktop only) -->
-      <aside class="hidden lg:block">
-        <div class="sticky top-24 space-y-8">
+      <aside class="post-sidebar">
+        <div class="sticky top-24 space-y-6">
           <div id="subscribe">
             <NewsletterForm variant="inline" />
           </div>
@@ -231,4 +231,38 @@ const jsonLd = {
     initCopyLinkButtons();
     document.addEventListener('astro:after-swap', initCopyLinkButtons);
   </script>
+
+  <style>
+    .post-layout {
+      display: block;
+    }
+
+    .post-content {
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .post-content .prose {
+      max-width: none;
+      margin: 0;
+    }
+
+    .post-sidebar {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .post-layout {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        gap: 3rem;
+      }
+
+      .post-sidebar {
+        display: block;
+        min-width: 0;
+      }
+    }
+  </style>
 </BaseLayout>

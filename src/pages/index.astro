@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import NewsletterForm from '@/components/NewsletterForm.astro';
+import { getCollection } from 'astro:content';
+import PostCard from '@/components/PostCard.astro';
+
+// Fetch latest posts
+const latestPosts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
 // Brand logos to display
 const brands = [
@@ -17,12 +24,13 @@ const brands = [
   <div class="page-container">
     <!-- Hero Section -->
     <section class="hero">
+      <div class="hero-bg"></div>
       <h1 class="hero-headline">Build Anything.</h1>
       <p class="hero-subheadline">
         Explore how to create using AI, Agents, and Code.
       </p>
 
-      <div class="hero-cta">
+      <div class="hero-cta" id="subscribe">
         <NewsletterForm
           variant="hero"
           heading="Get my best ideas"
@@ -41,6 +49,26 @@ const brands = [
         ))}
       </div>
     </section>
+    
+    <!-- Latest Articles -->
+    <section class="latest-articles">
+      <div class="section-header">
+        <h2 class="section-title">Latest Articles</h2>
+        <a href="/articles" class="view-all-link">View all</a>
+      </div>
+      <div class="posts-grid">
+        {latestPosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            slug={post.slug}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            readingTime={post.data.readingTime}
+          />
+        ))}
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
@@ -55,6 +83,24 @@ const brands = [
   .hero {
     padding: 6rem 0 5rem;
     text-align: center;
+    position: relative;
+  }
+  
+  .hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100%;
+    max-width: 1200px;
+    background-image: radial-gradient(var(--color-text-secondary) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
   }
 
   .hero-headline {
@@ -119,6 +165,42 @@ const brands = [
   :global(.dark) .brand-logo:hover {
     filter: grayscale(0%) brightness(1.1);
     opacity: 1;
+  }
+  
+  /* Latest Articles */
+  .latest-articles {
+    padding: 0 0 5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    padding-top: 3rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  .view-all-link {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .view-all-link:hover {
+    color: var(--color-accent);
+  }
+  
+  .posts-grid {
+    display: flex;
+    flex-direction: column;
   }
 
   @media (max-width: 640px) {

@@ -1,0 +1,353 @@
+---
+---
+
+<div id="subscribe-modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" aria-label="Close modal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="modal-content">
+      <h2 id="modal-title" class="modal-heading">Get my best ideas</h2>
+      <p class="modal-subheading">Weekly tips on AI, code, and building things - straight to your inbox.</p>
+
+      <form class="modal-form" id="modal-newsletter-form">
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+          class="modal-input"
+        />
+        <button type="submit" class="modal-submit">
+          <span class="button-text">Subscribe</span>
+          <span class="button-loading" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="32">
+                <animate attributeName="stroke-dashoffset" dur="1s" values="32;0" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </span>
+        </button>
+      </form>
+      <p class="form-message" style="display: none;"></p>
+
+      <p class="modal-footer">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .modal-overlay[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-container {
+    position: relative;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.2s ease;
+  }
+
+  .modal-overlay[aria-hidden="false"] .modal-container {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .modal-close:hover {
+    color: var(--color-text);
+    background: var(--color-bg-secondary);
+  }
+
+  .modal-content {
+    text-align: center;
+  }
+
+  .modal-heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-subheading {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5;
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .modal-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px oklch(from var(--color-accent) l c h / 0.15);
+  }
+
+  .modal-input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .modal-submit {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-submit:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .modal-submit:active {
+    transform: scale(0.98);
+  }
+
+  .modal-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .form-message {
+    font-size: 0.875rem;
+    margin: 0.75rem 0 0 0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+  }
+
+  .form-message.success {
+    color: #059669;
+    background: #ecfdf5;
+  }
+
+  .form-message.error {
+    color: #dc2626;
+    background: #fef2f2;
+  }
+
+  :global(.dark) .form-message.success {
+    color: #34d399;
+    background: #064e3b;
+  }
+
+  :global(.dark) .form-message.error {
+    color: #f87171;
+    background: #450a0a;
+  }
+
+  .modal-footer {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin: 1rem 0 0 0;
+  }
+
+  @media (max-width: 480px) {
+    .modal-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .modal-heading {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  function initSubscribeModal() {
+    const modal = document.getElementById('subscribe-modal');
+    const form = document.getElementById('modal-newsletter-form') as HTMLFormElement;
+    const closeBtn = modal?.querySelector('.modal-close');
+    const backdrop = modal?.querySelector('.modal-backdrop');
+
+    if (!modal || !form) return;
+
+    // Check if user already subscribed or dismissed exit intent
+    const hasSubscribed = () => localStorage.getItem('subscribed') === 'true';
+    const hasSeenExitIntent = () => sessionStorage.getItem('exitIntentShown') === 'true';
+    const markExitIntentShown = () => sessionStorage.setItem('exitIntentShown', 'true');
+    const markSubscribed = () => localStorage.setItem('subscribed', 'true');
+
+    // Open modal
+    function openModal(isExitIntent = false) {
+      if (isExitIntent) {
+        markExitIntentShown();
+      }
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      const input = modal.querySelector('input[type="email"]') as HTMLInputElement;
+      setTimeout(() => input?.focus(), 100);
+    }
+
+    // Close modal
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Listen for subscribe button clicks
+    document.querySelectorAll('[data-subscribe-trigger]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    // Exit intent detection (mouse leaving viewport at top)
+    let exitIntentEnabled = true;
+
+    function handleExitIntent(e: MouseEvent) {
+      // Only trigger if mouse leaves through top of viewport
+      if (e.clientY <= 0 && exitIntentEnabled && !hasSubscribed() && !hasSeenExitIntent()) {
+        exitIntentEnabled = false; // Prevent multiple triggers
+        openModal(true);
+      }
+    }
+
+    // Wait a few seconds before enabling exit intent
+    setTimeout(() => {
+      document.addEventListener('mouseout', (e: MouseEvent) => {
+        // Check if mouse actually left the document
+        if (e.relatedTarget === null || (e.relatedTarget as Node).nodeName === 'HTML') {
+          handleExitIntent(e);
+        }
+      });
+    }, 3000);
+
+    // Close handlers
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        closeModal();
+      }
+    });
+
+    // Form submission
+    if (form.dataset.initialized) return;
+    form.dataset.initialized = 'true';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const button = form.querySelector('.modal-submit') as HTMLButtonElement;
+      const buttonText = button.querySelector('.button-text') as HTMLElement;
+      const buttonLoading = button.querySelector('.button-loading') as HTMLElement;
+      const message = form.parentElement?.querySelector('.form-message') as HTMLElement;
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+
+      button.disabled = true;
+      buttonText.style.display = 'none';
+      buttonLoading.style.display = 'block';
+      message.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: emailInput.value }),
+        });
+
+        const data = await response.json();
+
+        message.style.display = 'block';
+        if (response.ok) {
+          message.className = 'form-message success';
+          message.textContent = 'Thanks for subscribing!';
+          emailInput.value = '';
+          markSubscribed(); // Remember they subscribed
+          // Close modal after success
+          setTimeout(closeModal, 2000);
+        } else {
+          message.className = 'form-message error';
+          message.textContent = data.error || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        message.style.display = 'block';
+        message.className = 'form-message error';
+        message.textContent = 'Network error. Please try again.';
+      } finally {
+        button.disabled = false;
+        buttonText.style.display = 'block';
+        buttonLoading.style.display = 'none';
+      }
+    });
+  }
+
+  initSubscribeModal();
+  document.addEventListener('astro:after-swap', initSubscribeModal);
+</script>

@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import SubscribeModal from '@/components/SubscribeModal.astro';
 
 interface Props {
   title: string;
@@ -81,5 +82,6 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
       <slot />
     </main>
     <Footer hideNewsletter={article} />
+    <SubscribeModal />
   </body>
 </html>

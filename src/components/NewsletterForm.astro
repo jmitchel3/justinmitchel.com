@@ -27,7 +27,7 @@ const {
       <input
         type="email"
         name="email"
-        placeholder="you@email.com"
+        placeholder="george@vandelayindustries.com"
         required
         autocomplete="email"
       />
@@ -64,7 +64,7 @@ const {
     padding-top: 0;
     border-top: none;
     background: var(--color-bg-secondary);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid var(--color-border);
   }
@@ -78,7 +78,7 @@ const {
   }
 
   .newsletter-form--inline h3 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
   }
 
@@ -89,12 +89,16 @@ const {
   }
 
   .newsletter-form--inline .newsletter-subheading {
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
   }
 
   .form-row {
     display: flex;
     gap: 0.5rem;
+  }
+
+  .newsletter-form--inline .form-row {
+    flex-direction: column;
   }
 
   input[type="email"] {
@@ -105,14 +109,15 @@ const {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: 6px;
-    color: var(--color-text);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    color: var(--color-text-secondary); /* Muted by default */
+    transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
   }
 
   input[type="email"]:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px oklch(from var(--color-accent) l c h / 0.15);
+    box-shadow: 0 0 0 4px oklch(from var(--color-accent) l c h / 0.15);
+    color: var(--color-text); /* Normal text color on focus */
   }
 
   input[type="email"]::placeholder {
@@ -129,15 +134,18 @@ const {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 100px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
   button[type="submit"]:hover {
-    opacity: 0.9;
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   button[type="submit"]:active {
@@ -174,6 +182,10 @@ const {
   :global(.dark) .form-message.error {
     color: #f87171;
     background: #450a0a;
+  }
+
+  .newsletter-form--inline button[type="submit"] {
+    width: 100%;
   }
 
   @media (max-width: 400px) {
