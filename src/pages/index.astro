@@ -7,7 +7,7 @@ import PostCard from '@/components/PostCard.astro';
 // Fetch latest posts
 const latestPosts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 4);
 
 ---
 
@@ -16,16 +16,13 @@ const latestPosts = (await getCollection('posts', ({ data }) => !data.draft))
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-bg"></div>
-      <h1 class="hero-headline">Let me help you use AI Agents</h1>
-      <p class="hero-subheadline">
-        Weekly insights on building with AI, practical coding tutorials, and tools that actually work.
-      </p>
+       <h1 class="hero-headline">Let me help you use AI Agents</h1>
 
       <div class="hero-cta" id="subscribe">
         <NewsletterForm
           variant="hero"
-          heading="Get my best ideas"
-          subheading="Join thousands learning to build with AI"
+          heading="Weekly tips in your inbox. For Free."
+          subheading=""
           showHeading={true}
         />
       </div>
