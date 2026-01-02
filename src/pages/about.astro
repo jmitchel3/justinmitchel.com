@@ -8,6 +8,17 @@ const metrics = [
   { value: '200+', label: 'Projects' },
 ];
 
+
+// Brand logos to display
+const brands = [
+  { name: 'Cloudflare', logo: '/brands/cloudflare.svg' },
+  { name: 'Docker', logo: '/brands/docker-logo-blue.svg' },
+  { name: 'DigitalOcean', logo: '/brands/digitalocean.svg' },
+  { name: 'Algolia', logo: '/brands/algolia.svg' },
+  { name: 'Upstash', logo: '/brands/upstash.svg' },
+  { name: 'Clerk', logo: '/brands/clerk.svg' },
+];
+
 const links = [
   
   { href: 'https://x.com/justinmitchel', label: 'X' },
@@ -28,12 +39,25 @@ const links = [
 
     <section class="bio">
       <p>
-        I'm Justin. I build things with code and AI, and I teach others to do the same.
+        I'm Justin. I want to help you use AI Agents to improve your work and build things that were previously impossible.
       </p>
       <p>
-        Since 2013, I've been running <a href="https://www.cfe.sh" target="_blank" rel="noopener noreferrer">Coding for Entrepreneurs</a>,
-        helping people turn ideas into working products.
+      The best part, anyone from any background can use AI Agents. You just need English, clarity, and a little grit.
       </p>
+      <p>
+        If you want to go full developer mode writing code manually and using AI Agents, check out my site Coding for Entrepreneurs (linked below). 
+      </p>
+    </section>
+
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+      <p class="social-proof-label">I've worked with teams at</p>
+      <div class="brands-row">
+        {brands.map((brand) => (
+          <img src={brand.logo} alt={brand.name} class="brand-logo" loading="lazy" />
+        ))}
+      </div>
     </section>
 
     <section class="metrics">
@@ -101,6 +125,50 @@ const links = [
     text-underline-offset: 0.2em;
   }
 
+  /* Social Proof */
+  .social-proof {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .social-proof-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .brands-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .brand-logo {
+    height: 24px;
+    width: auto;
+    opacity: 0.5;
+    filter: grayscale(100%);
+    transition: opacity 0.2s, filter 0.2s;
+  }
+
+  .brand-logo:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  :global(.dark) .brand-logo {
+    filter: grayscale(100%) invert(1);
+    opacity: 0.6;
+  }
+
+  :global(.dark) .brand-logo:hover {
+    filter: grayscale(100%) invert(1);
+    opacity: 1;
+  }
+
   .metrics {
     padding: 3rem 0;
     border-bottom: 1px solid var(--color-border);
@@ -130,6 +198,16 @@ const links = [
     font-size: 0.8125rem;
     color: var(--color-text-secondary);
     margin-top: 0.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .brands-row {
+      gap: 1.5rem;
+    }
+
+    .brand-logo {
+      height: 20px;
+    }
   }
 
   @media (max-width: 480px) {
