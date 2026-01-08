@@ -1,7 +1,7 @@
 ---
 title: "Sync Apple Notes to Markdown"
-date: 2025-01-07T12:00:00-05:00
-tags: ["Automation", "Python", "macOS", "Apple Notes", "Productivity"]
+date: 2026-01-07T12:00:00-05:00
+tags: ["Automation", "Python", "macOS", "Apple Notes", "Productivity", "Shortcuts"]
 category: "Tips"
 ---
 
@@ -27,6 +27,18 @@ Okay cool. Anything else? Well yes. I am officially a [obsidian.md](https://obsi
 Here's a script you can use to extract your Apple notes too:
 
 ## Python Script
+
+Create a file `sync_apple_notes.py`.
+
+Personally I did:
+
+```bash
+mkdir -p ~/Notes
+cd ~/Notes
+echo "" > sync_apple_notes.py
+```
+
+The in `sync_apple_notes.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -269,11 +281,14 @@ if __name__ == "__main__":
 You'll need to install [Astral's UV](https://docs.astral.sh/uv/getting-started/installation/) so you can:
 
 ```bash
+cd ~/Notes
+
 # One-time sync to current directory
 uv run sync_apple_notes.py
 
 # Sync to a specific directory
-uv run sync_apple_notes.py --output-dir ~/Documents/notes
+mkdir -p ~/Desktop/Notes
+uv run sync_apple_notes.py --output-dir ~/Desktop/Notes
 
 # Watch mode - continuously sync every 60 seconds
 uv run sync_apple_notes.py --watch
