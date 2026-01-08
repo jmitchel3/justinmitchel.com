@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check-links": "node scripts/check-links.js"
+    "check-links": "node scripts/check-links.js",
+    "download-kv": "node scripts/download-kv.js"
   },
   "dependencies": {
     "astro": "^5.1.1",

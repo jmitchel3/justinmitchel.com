@@ -6,6 +6,8 @@ category: "Claude Code"
 order: 2
 ---
 
+![What would you sa you do here?](/images/full-send-automation.gif)
+
 Here's how to transition to AI-first.
 
 ---
