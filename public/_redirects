@@ -4,3 +4,6 @@
 
 # Redirect /posts/shortcuts index to /shortcuts
 /posts/shortcuts           /shortcuts           301
+
+# Redirect .md file extensions to clean URLs
+/posts/*.md                /posts/:splat        301

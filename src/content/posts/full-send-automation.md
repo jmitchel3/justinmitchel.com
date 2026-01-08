@@ -53,7 +53,7 @@ Audio to Google Drive, Dropbox, OneDrive, External Hard Drive, etc.
 
 ## 4. Transcribe all audio in detail
 
-Lots of ways to do this but I recommend opening Claude Desktop in Code mode and telling it to use the open-source tool Whisper (from OpenAI):
+Lots of ways to do this but I recommend opening [Claude Desktop](/posts/claude-desktop) in Code mode and telling it to use the open-source tool Whisper (from OpenAI):
 
 > "Transcribe the entire folder of `Desktop > Full Send Automation > Raw > Audio` using Whisper and open source code; I need the transcripts to have as much detail as possible. Save them in `Desktop > Full Send Automation > Transcripts`"
 
@@ -67,7 +67,7 @@ Audio (yes again) and transcripts to Google Drive, Dropbox, OneDrive, External H
 
 ## 6. Put it all together
 
-Open a *new session* in Claude Desktop in Code mode. Say:
+Open a *new session* in [Claude Desktop](/posts/claude-desktop) in Code mode. Say:
 
 > "Open `Desktop > Full Send Automation`. We need to create a knowledge base in Markdown files optimized for tools like Obsidian based on the `Transcript` folders. Use AskUserQuestionTool if you need any clarifications on the transcripts or knowledge base. In some cases, the transcripts will have overlapping data, that's okay. The first pass of the knowledge base will be rough, we will continue to refine later. I really just need the transcripts organized."
 

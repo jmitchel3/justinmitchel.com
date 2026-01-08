@@ -10,7 +10,7 @@ order: 2
 
 Before you vibe code, be interviewed by AI. Here's how:
 
-- Download [Claude Code](https://code.claude.com/docs/en/overview) (different from [Claude Desktop](https://claude.ai/download))
+- Download [Claude Code](https://code.claude.com/docs/en/overview) (different from [Claude Desktop](/posts/claude-desktop))
 - Install it with your Command Line (terminal, powershell, wsl, etc)
 - Write a basic project spec file such as  `Accounting software for YouTube creators` in `spec.md`
 - In your terminal, run `claude --model opus` to start Claude Code. Make sure it's next to `spec.md`
