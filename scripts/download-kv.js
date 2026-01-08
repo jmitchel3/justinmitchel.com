@@ -1,12 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
- * Download all KV data from Cloudflare and save to dataset/
+ * Download KV data from Cloudflare and save to dataset/
  *
  * Usage: npm run download-kv
  *
  * Requires:
  * - CLOUDFLARE_ACCOUNT_ID env var
+ * - CLOUDFLARE_KV_NAMESPACE_ID env var (the specific KV namespace bound to this project)
  * - Logged into wrangler (npx wrangler login)
  */
 
@@ -40,10 +41,17 @@ function loadEnv() {
 loadEnv();
 
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const KV_NAMESPACE_ID = process.env.CLOUDFLARE_KV_NAMESPACE_ID;
 
 if (!ACCOUNT_ID) {
   console.error('Error: CLOUDFLARE_ACCOUNT_ID env var is required');
-  console.error('Add it to your .env file or run: CLOUDFLARE_ACCOUNT_ID=xxx npm run download-kv');
+  console.error('Add it to your .env file');
+  process.exit(1);
+}
+
+if (!KV_NAMESPACE_ID) {
+  console.error('Error: CLOUDFLARE_KV_NAMESPACE_ID env var is required');
+  console.error('Find your KV namespace ID in the Cloudflare dashboard under Workers & Pages > KV');
   process.exit(1);
 }
 
@@ -73,91 +81,69 @@ function escapeCSV(value) {
 
 async function main() {
   console.log('Downloading KV data from Cloudflare...\n');
+  console.log(`Using namespace: ${KV_NAMESPACE_ID}\n`);
 
   // Ensure dataset directory exists
   if (!existsSync(datasetDir)) {
     mkdirSync(datasetDir, { recursive: true });
   }
 
-  // List all KV namespaces
-  console.log('Fetching KV namespaces...');
-  const namespacesRaw = run('npx wrangler kv namespace list --json');
-  const namespaces = JSON.parse(namespacesRaw);
+  const dateStr = getDateString();
 
-  if (namespaces.length === 0) {
-    console.log('No KV namespaces found.');
+  // Get all keys from the specified namespace
+  console.log('Fetching keys...');
+  const keysRaw = run(`bun x wrangler kv key list --namespace-id=${KV_NAMESPACE_ID} --remote`);
+  const keys = JSON.parse(keysRaw);
+
+  if (keys.length === 0) {
+    console.log('No keys found in namespace.');
     return;
   }
 
-  console.log(`Found ${namespaces.length} namespace(s):\n`);
+  console.log(`Found ${keys.length} key(s)\n`);
 
-  for (const ns of namespaces) {
-    console.log(`  - ${ns.title} (${ns.id})`);
-  }
+  const rows = [];
 
-  console.log('\n');
-
-  const dateStr = getDateString();
-
-  // Download keys and values from each namespace
-  for (const ns of namespaces) {
-    console.log(`Downloading from "${ns.title}"...`);
-
-    // Get all keys
-    const keysRaw = run(`npx wrangler kv key list --namespace-id=${ns.id} --json`);
-    const keys = JSON.parse(keysRaw);
-
-    if (keys.length === 0) {
-      console.log(`  No keys found in ${ns.title}\n`);
-      continue;
-    }
-
-    console.log(`  Found ${keys.length} key(s)`);
-
-    const rows = [];
-
-    for (const keyObj of keys) {
-      const key = keyObj.name;
+  for (const keyObj of keys) {
+    const key = keyObj.name;
+    try {
+      const value = run(`bun x wrangler kv key get "${key}" --namespace-id=${KV_NAMESPACE_ID} --remote`);
+      let parsed;
       try {
-        const value = run(`npx wrangler kv key get "${key}" --namespace-id=${ns.id}`);
-        let parsed;
-        try {
-          parsed = JSON.parse(value);
-        } catch {
-          parsed = { raw: value.trim() };
-        }
-
-        // Flatten the data for CSV
-        rows.push({
-          key,
-          email: parsed.email || '',
-          firstName: parsed.firstName || '',
-          timestamp: parsed.timestamp || '',
-          synced: parsed.synced !== undefined ? String(parsed.synced) : '',
-        });
-      } catch (e) {
-        console.log(`  Warning: Could not fetch key "${key}"`);
-        rows.push({ key, email: '', firstName: '', timestamp: '', synced: '' });
+        parsed = JSON.parse(value);
+      } catch {
+        parsed = { raw: value.trim() };
       }
+
+      // Flatten the data for CSV
+      rows.push({
+        key,
+        email: parsed.email || '',
+        firstName: parsed.firstName || '',
+        timestamp: parsed.timestamp || '',
+        synced: parsed.synced !== undefined ? String(parsed.synced) : '',
+      });
+    } catch (e) {
+      console.log(`Warning: Could not fetch key "${key}"`);
+      rows.push({ key, email: '', firstName: '', timestamp: '', synced: '' });
     }
-
-    // Build CSV
-    const headers = ['key', 'email', 'firstName', 'timestamp', 'synced'];
-    const csvLines = [headers.join(',')];
-
-    for (const row of rows) {
-      csvLines.push(headers.map(h => escapeCSV(row[h])).join(','));
-    }
-
-    // Save CSV with date
-    const safeName = ns.title.replace(/[^a-zA-Z0-9]/g, '_');
-    const filename = `${safeName}_${dateStr}.csv`;
-    const filepath = join(datasetDir, filename);
-    writeFileSync(filepath, csvLines.join('\n'));
-    console.log(`  Saved to dataset/${filename}\n`);
   }
 
-  console.log('Done! Check the dataset/ folder.');
+  // Build CSV
+  const headers = ['key', 'email', 'firstName', 'timestamp', 'synced'];
+  const csvLines = [headers.join(',')];
+
+  for (const row of rows) {
+    csvLines.push(headers.map(h => escapeCSV(row[h])).join(','));
+  }
+
+  // Save CSV with date
+  const filename = `email_signups_${dateStr}.csv`;
+  const filepath = join(datasetDir, filename);
+  writeFileSync(filepath, csvLines.join('\n'));
+  console.log(`Saved ${rows.length} entries to dataset/${filename}`);
+
+  console.log('\nDone!');
 }
 
 main().catch(console.error);
